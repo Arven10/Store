@@ -35,8 +35,14 @@ class UserModel extends \yii\db\ActiveRecord
     {
         return [
             [['email', 'phone_number', 'full_name', 'address', 'password'], 'required'],
-            [['email', 'phone_number', 'full_name', 'password'], 'string', 'max' => 100],
-            [['address'], 'string', 'max' => 1000]
+            [['email', 'phone_number', 'full_name'], 'string', 'max' => 100],
+            [['address'], 'string', 'max' => 1000],
+			[['password'], 'string', 'max' => 10, 'min' => 6],
+			[['email'], 'match', 'pattern'=>'/[A-Z]{1}/', 'message' => 'Password must contain at least 1 capital letter.'],
+			[['email'], 'match', 'pattern'=>'/\d+/', 'message' => 'Password must contain at least 1 number.'],
+			[['email'], 'unique'],
+			[['full_name'], 'unique'],
+			['email', 'email']
         ];
     }
 
